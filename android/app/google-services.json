@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "353646333787",
+    "project_id": "trainr-f59e5",
+    "storage_bucket": "trainr-f59e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353646333787:android:b9159e953d475d3e23947e",
+        "android_client_info": {
+          "package_name": "com.trainrdashboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "353646333787-689tee857qp9prl1k450q5rsvvmpak5t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trainrdashboard",
+            "certificate_hash": "601cb0f6e3ef12931bcf2e9cb964964eb7a7f362"
+          }
+        },
+        {
+          "client_id": "353646333787-2f14f8m78f4tsmpuhgicdvpjqnr4tvan.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhxkum4IBC-I7qJxIGIi_vLl0DHYjnnj4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "353646333787-2f14f8m78f4tsmpuhgicdvpjqnr4tvan.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
