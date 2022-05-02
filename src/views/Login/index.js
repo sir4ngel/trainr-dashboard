@@ -1,22 +1,35 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, StatusBar, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
 import colors from '../../../assets/Colors';
-import auth from '@react-native-firebase/auth';
 import AuthContext from '../../utils/context/AuthContext';
+import { CredentialsContext } from '../../utils/context/CredentialsContext';
 
 
-const LoginView = () => {
+const LoginView = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginButtonIsPressable, setLoginButtonIsPressable] = useState(false);
     const auth = useContext(AuthContext);
+    const {user, setUser} = useContext(CredentialsContext)
 
     function logIn() {
         if (email) {
             if (password) {
                 auth().signInWithEmailAndPassword(email, password)
-                .then(() => console.log('Usuario logeado.'))
-                .catch((error) => console.log(error));
+                    .then(() => console.log('Usuario logeado.'))
+                    .catch((error) => {
+                        if (error.code === 'auth/wrong-password') {
+                            ToastAndroid.show('Contraseña incorrecta.', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
+                        } else if (error.code === 'auth/invalid-email') {
+                            ToastAndroid.show('El email es invalido.', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
+                        } else if (error.code === 'auth/user-disabled') {
+                            ToastAndroid.show('Usuario vetado.', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
+                        } else if (error.code === 'auth/user-not-found') {
+                            ToastAndroid.show('El usuario no fué encontrado.', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
+                        } else {
+                            ToastAndroid.show(error.code, ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
+                        }
+                    });
             } else {
                 ToastAndroid.show('El campo contraseña está vacío.', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
             }
@@ -32,17 +45,19 @@ const LoginView = () => {
             setPassword(value);
             if (value.length >= 6) {
                 setLoginButtonIsPressable(true);
-                console.log('Entre');
             }
-        }
+        };
+    };
 
+    const onHandleSignInButton = () => {
+        props.navigation.navigate('SignInStack');
     };
 
     return (
         <View style={styles.container}>
             <StatusBar barStyle='dark-content' backgroundColor={'white'} translucent={false} />
-            <Text style={[styles.inputTitle, { marginTop: 50 }]}>
-                Correo electronico o nombre de usuario
+            <Text style={[styles.inputTitle, { marginTop: 60 }]}>
+                Correo eléctronico
             </Text>
             <TextInput style={styles.input} keyboardType={'email-address'} onChangeText={(value) => onHandleInputText(1, value)} />
             <Text style={[styles.inputTitle, { marginTop: 30 }]}>Contraseña</Text>
@@ -57,7 +72,7 @@ const LoginView = () => {
                 </View>
                 <View style={styles.separatorLine} />
             </View>
-            <TouchableOpacity style={styles.signupButton}>
+            <TouchableOpacity style={styles.signupButton} onPress={onHandleSignInButton}>
                 <Text style={styles.signupButtonText}>Registrarse</Text>
             </TouchableOpacity>
         </View>
@@ -119,7 +134,7 @@ const styles = StyleSheet.create({
     },
     signupButtonText: {
         color: colors.darkText,
-        fontFamily: 'RobotoSlab-Regular',
+        fontFamily: 'RobotoSlab-Medium',
         marginHorizontal: 12,
         marginVertical: 1,
         fontSize: 12

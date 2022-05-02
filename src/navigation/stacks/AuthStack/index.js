@@ -1,7 +1,7 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginView from "../../../views/Login";
+import SignInStack from "../SignInStack";
 
 const AuthStackNavigator = createNativeStackNavigator();
 const AuthStack = () => {
@@ -11,6 +11,7 @@ const AuthStack = () => {
                 headerShown: false
             }}>
             <AuthStackNavigator.Screen name="LoginView" component={LoginView} />
+            <AuthStackNavigator.Screen name="SignInStack" component={SignInStack} />
         </AuthStackNavigator.Navigator>
     );
 };

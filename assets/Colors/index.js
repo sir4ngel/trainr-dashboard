@@ -1,10 +1,11 @@
 const colors = {
     background: 'white',
-    primary: '#000080',
+    primary: 'black',
     secondary: '#FFFF00',
-    darkText: 'black',
+    darkText: '#313234',
     whiteText: 'white',
-    textInput: '#F5F5F5'
+    textInput: '#F5F5F5',
+    link: 'blue'
   };
   
   export default colors;
