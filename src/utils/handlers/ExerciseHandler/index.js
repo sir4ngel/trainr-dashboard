@@ -2,7 +2,7 @@ import '../../../../global.js';
 class ExerciseHandler {
     onGetExercises = async (user_id, token) => {
         try {
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/exercise/get?user_id=' + user_id, {
+            var fetchedData = await fetch('http://' + global.ip + '/api/exercise/get?user_id=' + user_id, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
@@ -28,7 +28,7 @@ class ExerciseHandler {
                     "user_id": exerciseData.user_id
                 }
             }
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/exercise/create', {
+            var fetchedData = await fetch('http://' + global.ip + '/api/exercise/create', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -56,7 +56,7 @@ class ExerciseHandler {
                     "user_id": exerciseData.user_id
                 }
             }
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/exercise/edit', {
+            var fetchedData = await fetch('http://' + global.ip + '/api/exercise/edit', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

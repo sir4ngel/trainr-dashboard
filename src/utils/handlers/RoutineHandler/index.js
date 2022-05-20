@@ -2,7 +2,7 @@ import '../../../../global.js';
 class RoutineHandler {
     onGetRoutines = async (user_id, token) => {
         try {
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/routine/get?user_id=' + user_id, {
+            var fetchedData = await fetch('http://' + global.ip + '/api/routine/get?user_id=' + user_id, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
@@ -25,7 +25,7 @@ class RoutineHandler {
                 "routineData": routineData,
                 "exercisesData": exercisesData
             }
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/routine/create', {
+            var fetchedData = await fetch('http://' + global.ip + '/api/routine/create', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -48,7 +48,7 @@ class RoutineHandler {
             var data = {
                 routine_id: id
             }
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/routine/exercises', {
+            var fetchedData = await fetch('http://' + global.ip + '/api/routine/exercises', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -73,7 +73,7 @@ class RoutineHandler {
                 "exercise_id": routineData.exercise_id,
                 "data": routineData.routineData
             }
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/routine/edit', {
+            var fetchedData = await fetch('http://' + global.ip + '/api/routine/edit', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -101,7 +101,7 @@ class RoutineHandler {
                 "exercises": routineData.exercises,
                 "date": routineData.date
             }
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/routine/student/set', {
+            var fetchedData = await fetch('http://' + global.ip + '/api/routine/student/set', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

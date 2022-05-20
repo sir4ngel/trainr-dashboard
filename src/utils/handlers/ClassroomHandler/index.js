@@ -5,7 +5,7 @@ class ClassroomHandler {
             var data = {
                 "user_id": user_id
             }
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/classroom/get?user_id=' + user_id, {
+            var fetchedData = await fetch('http://' + global.ip + '/api/classroom/get?user_id=' + user_id, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
@@ -32,7 +32,7 @@ class ClassroomHandler {
                     "user_id": classroomData.user_id
                 }
             }
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/classroom/create', {
+            var fetchedData = await fetch('http://' + global.ip + '/api/classroom/create', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -60,7 +60,7 @@ class ClassroomHandler {
                     "user_id": classroomData.user_id
                 }
             }
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/classroom/edit', {
+            var fetchedData = await fetch('http://' + global.ip + '/api/classroom/edit', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -80,7 +80,7 @@ class ClassroomHandler {
 
     onGetStudents = async (classroom_id, token) => {
         try {
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/classroom/students/get?classroom_id=' + classroom_id, {
+            var fetchedData = await fetch('http://' + global.ip + '/api/classroom/students/get?classroom_id=' + classroom_id, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',

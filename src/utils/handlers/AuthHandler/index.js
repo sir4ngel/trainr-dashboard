@@ -6,7 +6,7 @@ class AuthHandler{
                 "email": email,
                 "password": password
             }
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/login/trainer', {
+            var fetchedData = await fetch('http://' + global.ip + '/api/login/trainer', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -33,7 +33,7 @@ class AuthHandler{
                 "password": authData.password,
                 "password_confirmation": authData.password_confirmation
             }
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/register', {
+            var fetchedData = await fetch('http://' + global.ip + '/api/register', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
