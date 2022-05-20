@@ -56,17 +56,17 @@ const ExerciseAddView = (props) => {
         <View style={{ flex: 1, backgroundColor: colors.background }}>
             <View style={{ paddingHorizontal: 20 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: 15 }}>
-                    <TouchableOpacity onPress={props.navigation.goBack} style={{ height: 30, width: 30, backgroundColor: colors.whiteText, borderRadius: 15, elevation: 5, justifyContent: 'center', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={props.navigation.goBack} style={{ height: 30, width: 30, backgroundColor: colors.white, borderRadius: 15, elevation: 5, justifyContent: 'center', alignItems: 'center' }}>
                         <Image style={{ height: '70%', width: '70%' }} source={require('../../../../assets/icons/close.png')} resizeMode={'contain'} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={onHandleCreateButton} style={{ backgroundColor: '#50C878', borderRadius: 5, elevation: 5, paddingHorizontal: 20, justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }}>
-                        <Text style={{ color: colors.whiteText, fontFamily: 'Montserrat-ExtraBold' }}>Crear</Text>
+                    <TouchableOpacity onPress={onHandleCreateButton} style={{ backgroundColor: colors.primaryTitle, borderRadius: 5, elevation: 5, paddingHorizontal: 20, justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }}>
+                        <Text style={{ color: colors.white, fontFamily: 'Montserrat-ExtraBold' }}>Crear</Text>
                     </TouchableOpacity>
                 </View>
-                <Text style={{ marginBottom: 20, color: colors.darkText, fontSize: 25, fontFamily: 'Montserrat-ExtraBold' }}>Crear un ejercicio</Text>
-                <TextInput onChangeText={(value) => onHandleTextInput(1, value)} style={{ borderWidth: 1, backgroundColor: '#F3F3F3', borderColor: '#F5F5F5', paddingHorizontal: 20, color: colors.darkText, fontFamily: 'Montserrat-Medium' }} placeholder={'Nombre del ejercicio'} placeholderTextColor={'gray'} />
-                <Text style={{ color: colors.darkText, fontFamily: 'Montserrat-Regular', marginBottom: 20 }}>e.j. Dominadas, lagartijas, bicep curl.</Text>
-                <TextInput onChangeText={(value) => onHandleTextInput(2, value)} style={{ borderWidth: 1, backgroundColor: '#F3F3F3', borderColor: '#F5F5F5', paddingHorizontal: 20, color: colors.darkText, fontFamily: 'Montserrat-Medium' }} placeholder={'URL del video'} placeholderTextColor={'gray'} />
+                <Text style={{ marginBottom: 20, color: colors.primaryTitle, fontSize: 25, fontFamily: 'Montserrat-ExtraBold' }}>Crear un ejercicio</Text>
+                <TextInput onChangeText={(value) => onHandleTextInput(1, value)} style={{ borderWidth: 1, backgroundColor: '#F3F3F3', borderColor: '#F5F5F5', paddingHorizontal: 20, color: colors.primaryTitle, fontFamily: 'Montserrat-Medium' }} placeholder={'Nombre del ejercicio'} placeholderTextColor={'gray'} />
+                <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-Regular', marginBottom: 20 }}>e.j. Dominadas, lagartijas, bicep curl.</Text>
+                <TextInput onChangeText={(value) => onHandleTextInput(2, value)} style={{ borderWidth: 1, backgroundColor: '#F3F3F3', borderColor: '#F5F5F5', paddingHorizontal: 20, color: colors.primaryTitle, fontFamily: 'Montserrat-Medium' }} placeholder={'URL del video'} placeholderTextColor={'gray'} />
             </View>
         </View>
     );

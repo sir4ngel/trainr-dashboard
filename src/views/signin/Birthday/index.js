@@ -41,20 +41,20 @@ const styles = StyleSheet.create({
         marginTop: 50
     },
     title: {
-        color: colors.darkText,
+        color: colors.primaryTitle,
         fontSize: 30,
-        fontFamily: 'AlfaSlabOne-Regular',
+        fontFamily: 'Montserrat-Bold',
         marginBottom: 20
     },
     button: {
         alignSelf: 'center',
         marginVertical: 40,
-        backgroundColor: colors.primary,
+        backgroundColor: colors.primaryTitle,
         borderRadius: 30
     },
     textButton: {
-        color: colors.whiteText,
-        fontFamily: 'RobotoSlab-SemiBold',
+        color: colors.white,
+        fontFamily: 'Montserrat-SemiBold',
         marginHorizontal: 30,
         marginVertical: 15,
         fontSize: 15

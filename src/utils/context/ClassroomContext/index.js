@@ -1,3 +1,6 @@
-import {createContext} from 'react';
+import { createContext } from 'react';
 
-export const ClassroomContext = createContext({classrooms: {}, setClassrooms: () => {}});
+export const ClassroomContext = createContext({
+    classrooms: {},
+    setClassrooms: () => { }
+});

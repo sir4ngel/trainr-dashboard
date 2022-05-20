@@ -2,17 +2,13 @@ import '../../../../global.js';
 class ExerciseHandler {
     onGetExercises = async (user_id, token) => {
         try {
-            var data = {
-                "user_id": user_id
-            }
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/exercise/get', {
-                method: 'POST',
+            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/exercise/get?user_id=' + user_id, {
+                method: 'GET',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token
-                },
-                body: JSON.stringify(data)
+                }
             }).then(res => res.json())
                 .then(resData => {
                     return resData

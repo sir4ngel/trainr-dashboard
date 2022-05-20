@@ -1,12 +1,12 @@
 import '../../../../global.js';
 class AuthHandler{
-    onLogin = async(phone, password) => {
+    onLogin = async(email, password) => {
         try {
             var data ={
-                "phone_number": phone,
+                "email": email,
                 "password": password
             }
-            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/login', {
+            var fetchedData = await fetch('http://' + global.ip + '/trainr/public/api/login/trainer', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

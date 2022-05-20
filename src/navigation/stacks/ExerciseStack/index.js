@@ -7,11 +7,13 @@ import { ExercisesContext } from "../../../utils/context/ExercisesContext";
 import { CredentialsContext } from "../../../utils/context/CredentialsContext";
 import ExerciseEditView from "../../../views/exercise/Edit";
 import exerciseHandler from "../../../utils/handlers/ExerciseHandler";
+import { LoadingContext } from "../../../utils/context/LoadingContext";
 
 const ExerciseStackNavigator = createNativeStackNavigator();
 const ExerciseStack = ({ navigation }) => {
     const [exercises, setExercises] = useState([]);
     const { storedCredentials, setStoredCredentials } = useContext(CredentialsContext);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         onGetExercises();
@@ -25,27 +27,32 @@ const ExerciseStack = ({ navigation }) => {
         if (exerciseData.status) {
             if (exerciseData.status !== 'SUCCESS') {
                 ToastAndroid.show(exerciseData.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
+                setLoading(false);
             } else {
                 setExercises(exerciseData.data)
+                setLoading(false);
                 console.log(exerciseData);
             }
         } else {
             ToastAndroid.show('Ocurrió un error', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
+            setLoading(false);
             console.log(exerciseData);
         }
     };
 
     return (
-        <ExercisesContext.Provider value={{ exercises, setExercises }}>
-            <ExerciseStackNavigator.Navigator
-                screenOptions={{
-                    headerShown: false
-                }}>
-                <ExerciseStackNavigator.Screen name="ExerciseIndexView" component={ExerciseIndexView} />
-                <ExerciseStackNavigator.Screen name="ExerciseAddView" component={ExerciseAddView} />
-                <ExerciseStackNavigator.Screen name="ExerciseEditView" component={ExerciseEditView} />
-            </ExerciseStackNavigator.Navigator>
-        </ExercisesContext.Provider>
+        <LoadingContext.Provider value={{ loading, setLoading }}>
+            <ExercisesContext.Provider value={{ exercises, setExercises }}>
+                <ExerciseStackNavigator.Navigator
+                    screenOptions={{
+                        headerShown: false
+                    }}>
+                    <ExerciseStackNavigator.Screen name="ExerciseIndexView" component={ExerciseIndexView} />
+                    <ExerciseStackNavigator.Screen name="ExerciseAddView" component={ExerciseAddView} />
+                    <ExerciseStackNavigator.Screen name="ExerciseEditView" component={ExerciseEditView} />
+                </ExerciseStackNavigator.Navigator>
+            </ExercisesContext.Provider>
+        </LoadingContext.Provider>
     );
 };
 

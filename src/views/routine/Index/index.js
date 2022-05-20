@@ -1,20 +1,24 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Image, FlatList, RefreshControl, ToastAndroid } from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList, RefreshControl, ToastAndroid, ActivityIndicator } from 'react-native';
 import { RoutinesContext } from '../../../utils/context/RoutinesContext';
 import colors from '../../../../assets/Colors';
 import { CredentialsContext } from '../../../utils/context/CredentialsContext';
 import routineHandler from '../../../utils/handlers/RoutineHandler';
+import { LoadingContext } from '../../../utils/context/LoadingContext';
 
 const RoutineIndexView = (props) => {
     const [refreshing, setRefreshing] = useState(false);
     const {routines, setRoutines} = useContext(RoutinesContext);
     const { storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
+    const {loading, setLoading} = useContext(LoadingContext)
 
     const onRenderRoutineItem = ({ item }) => {
         return (
-            <TouchableOpacity onPress={() => props.navigation.navigate('RoutineEditView')} style={{ backgroundColor: colors.background, elevation: 5, marginHorizontal: 10, paddingHorizontal: 10, paddingVertical: 15, borderRadius: 2, marginBottom: 10 }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={{ color: colors.darkText, fontFamily: 'Montserrat-Medium' }}>{item.name}</Text>
+            <TouchableOpacity onPress={() => props.navigation.navigate('RoutineEditView', {
+                id: item.id
+            })} style={{ backgroundColor: colors.background, elevation: 1, marginHorizontal: 10, paddingHorizontal: 10, paddingVertical: 15, borderRadius: 5, marginBottom: 10 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+                    <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-Medium' }}>{item.name}</Text>
                     <View style={{ height: 24, width: 24, borderRadius: 12, backgroundColor: '#F5F5F5', justifyContent: 'center', alignItems: 'center', }}>
                         <Image style={{ height: '70%', width: '70%' }} source={require('../../../../assets/icons/arrow.png')} />
                     </View>
@@ -46,7 +50,14 @@ const RoutineIndexView = (props) => {
         setRefreshing(true);
         onGetRoutines();
     };
-
+    
+    if (loading) {
+        return (
+            <View style={{ flex: 1, backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center', }}>
+                <ActivityIndicator color={colors.primaryTitle} size={'large'} />
+            </View>
+        );
+    }
     return (
         <View style={{ flex: 1, backgroundColor: colors.background }}>
             <View style={{ paddingHorizontal: 20, paddingVertical: 20, marginBottom: 20, backgroundColor: colors.background, elevation: 2 }}>
@@ -54,8 +65,9 @@ const RoutineIndexView = (props) => {
                     <Image style={{ height: '100%', width: '100%' }} source={require('../../../../assets/icons/drawer.png')} resizeMode={'contain'} />
                 </TouchableOpacity>
             </View>
-            <Text style={{ marginHorizontal: 20, color: colors.darkText, fontFamily: 'Montserrat-Bold', fontSize: 21, marginBottom: 20 }}>Rutinas</Text>
+            <Text style={{ marginHorizontal: 20, color: colors.primaryTitle, fontFamily: 'Montserrat-Bold', fontSize: 21, marginBottom: 20 }}>Rutinas</Text>
             <FlatList
+            style={{ paddingTop: 5}}
                 showsVerticalScrollIndicator={false}
                 data={routines}
                 renderItem={onRenderRoutineItem}

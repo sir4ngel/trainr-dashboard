@@ -88,17 +88,17 @@ const SignInPasswordView = (props) => {
                 <Text style={[styles.title, { marginTop: 25 }]}>Repite tu contraseña</Text>
                 <TextInput style={styles.input} secureTextEntry onChangeText={(value) => onHandleInputText(2, value)} editable={isEditable}></TextInput>
                 <View style={{ flexDirection: 'row', marginTop: 20 }}>
-                    <TouchableOpacity style={{ backgroundColor: colors.textInput, justifyContent: 'center', alignItems: 'center', borderRadius: 5 }} onPress={isAccepted ? () => setIsAccepted(false) : () => setIsAccepted(true)} disabled={isDisabled}>
+                    <TouchableOpacity style={{ backgroundColor: colors.input, justifyContent: 'center', alignItems: 'center', borderRadius: 5 }} onPress={isAccepted ? () => setIsAccepted(false) : () => setIsAccepted(true)} disabled={isDisabled}>
                         {
                             isAccepted ?
-                                <View style={{ height: 15, width: 15, borderRadius: 25, backgroundColor: colors.primary, margin: 5 }} /> :
-                                <View style={{ height: 15, width: 15, borderRadius: 25, backgroundColor: colors.textInput, margin: 5 }} />
+                                <View style={{ height: 15, width: 15, borderRadius: 25, backgroundColor: colors.primaryTitle, margin: 5 }} /> :
+                                <View style={{ height: 15, width: 15, borderRadius: 25, backgroundColor: colors.input, margin: 5 }} />
                         }
                     </TouchableOpacity>
                     <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                        <Text style={{ color: colors.darkText, fontFamily: 'RobotoSlab-SemiBold' }}>Acepto los </Text>
+                        <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-SemiBold' }}>Acepto los </Text>
                         <TouchableOpacity disabled={isDisabled}>
-                            <Text style={{ color: colors.link, fontFamily: 'RobotoSlab-SemiBold' }}>terminos y condiciones.</Text>
+                            <Text style={{ color: 'blue', fontFamily: 'Montserrat-SemiBold' }}>terminos y condiciones.</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -120,25 +120,25 @@ const styles = StyleSheet.create({
         marginTop: 50
     },
     input: {
-        backgroundColor: colors.textInput,
-        color: colors.darkText,
+        backgroundColor: colors.input,
+        color: colors.primaryTitle,
         paddingHorizontal: 20,
         borderRadius: 5
     },
     title: {
-        color: colors.darkText,
+        color: colors.primaryTitle,
         fontSize: 30,
-        fontFamily: 'AlfaSlabOne-Regular'
+        fontFamily: 'Montserrat-Regular'
     },
     button: {
         alignSelf: 'center',
         marginVertical: 40,
-        backgroundColor: colors.primary,
+        backgroundColor: colors.primaryTitle,
         borderRadius: 30
     },
     textButton: {
-        color: colors.whiteText,
-        fontFamily: 'RobotoSlab-SemiBold',
+        color: colors.white,
+        fontFamily: 'Montserrat-SemiBold',
         marginHorizontal: 30,
         marginVertical: 15,
         fontSize: 15

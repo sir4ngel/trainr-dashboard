@@ -10,13 +10,13 @@ export default function ClassStack(props) {
   
   function HomeClassSettingsViewWithTitle() {
     return (
-      <HomeClassSettingsView title={props.route.params.title} type={props.route.params.type} code={props.route.params.code} />
+      <HomeClassSettingsView name={props.route.params.name} type={props.route.params.type} code={props.route.params.code} />
     );
   };
 
-  function HomeClassIndexViewWithStudents() {
+  function HomeClassIndexViewWithParams() {
     return (
-      <HomeClassIndexView students={props.route.params.students} />
+      <HomeClassIndexView id={props.route.params.id} />
     );
   };
 
@@ -27,14 +27,14 @@ export default function ClassStack(props) {
         elevation: 0
       },
       tabBarLabelStyle: {
-        color: colors.darkText,
+        color: colors.primaryTitle,
         fontFamily: 'Montserrat-Medium'
       },
       tabBarIndicatorStyle: {
-        backgroundColor: colors.darkText
+        backgroundColor: colors.primaryTitle
       }
     }}>
-      <ClassStackNavigator.Screen name="HomeClassIndexView" component={HomeClassIndexViewWithStudents} options={{ title: 'Alumnos' }} />
+      <ClassStackNavigator.Screen name="HomeClassIndexView" component={HomeClassIndexViewWithParams} options={{ title: 'Alumnos' }} />
       <ClassStackNavigator.Screen name="HomeClassSettingsView" component={HomeClassSettingsViewWithTitle} options={{ title: 'Ajustes' }} />
     </ClassStackNavigator.Navigator>
   );

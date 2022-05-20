@@ -1,144 +1,104 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, StatusBar, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState, useContext } from 'react';
+import { View, Text, StatusBar, Image, TouchableOpacity, TextInput, ActivityIndicator, ToastAndroid } from 'react-native';
 import colors from '../../../assets/Colors';
-import AuthContext from '../../utils/context/AuthContext';
 import { CredentialsContext } from '../../utils/context/CredentialsContext';
-
+import authHandler from '../../utils/handlers/AuthHandler';
 
 const LoginView = (props) => {
+    const [isLogining, setIsLogining] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [loginButtonIsPressable, setLoginButtonIsPressable] = useState(false);
-    const auth = useContext(AuthContext);
-    const {user, setUser} = useContext(CredentialsContext)
+    const { storedCredentials, setStoredCredentials } = useContext(CredentialsContext);
 
-    function logIn() {
-        if (email) {
-            if (password) {
-                auth().signInWithEmailAndPassword(email, password)
-                    .then(() => console.log('Usuario logeado.'))
-                    .catch((error) => {
-                        if (error.code === 'auth/wrong-password') {
-                            ToastAndroid.show('Contraseña incorrecta.', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
-                        } else if (error.code === 'auth/invalid-email') {
-                            ToastAndroid.show('El email es invalido.', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
-                        } else if (error.code === 'auth/user-disabled') {
-                            ToastAndroid.show('Usuario vetado.', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
-                        } else if (error.code === 'auth/user-not-found') {
-                            ToastAndroid.show('El usuario no fué encontrado.', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
-                        } else {
-                            ToastAndroid.show(error.code, ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
-                        }
-                    });
-            } else {
-                ToastAndroid.show('El campo contraseña está vacío.', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
-            }
+    const onHandleLoginButton = async () => {
+        if (!email) {
+            ToastAndroid.show('Escribe un email', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
+        } else if (!password) {
+            ToastAndroid.show('Escribe una contraseña', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
         } else {
-            ToastAndroid.show('El campo correo electronico está vacío.', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
+            setIsLogining(true);
+            const authData = await authHandler.onLogin(email, password);
+            if (authData.status) {
+                if (authData.status !== 'SUCCESS') {
+                    ToastAndroid.show(authData.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
+                    setIsLogining(false);
+                } else {
+                    ToastAndroid.show(authData.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
+                    persistLogin(authData);
+                }
+            } else {
+                ToastAndroid.show('Ocurrió un error', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
+                console.log(authData);
+                setIsLogining(false);
+            }
         }
-    }
+    };
 
-    const onHandleInputText = (type, value) => {
+    const persistLogin = (authData) => {
+        var credentialsData = {
+            user: authData.user,
+            token: authData.token
+        }
+        AsyncStorage.setItem('credentials', JSON.stringify(credentialsData))
+            .then(() => {
+                setStoredCredentials(credentialsData)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        setIsLogining(false);
+    };
+
+    const onHandleTextInput = (type, value) => {
         if (type === 1) {
             setEmail(value);
         } else {
             setPassword(value);
-            if (value.length >= 6) {
-                setLoginButtonIsPressable(true);
-            }
-        };
-    };
-
-    const onHandleSignInButton = () => {
-        props.navigation.navigate('SignInStack');
+        }
     };
 
     return (
-        <View style={styles.container}>
-            <StatusBar barStyle='dark-content' backgroundColor={'white'} translucent={false} />
-            <Text style={[styles.inputTitle, { marginTop: 60 }]}>
-                Correo eléctronico
-            </Text>
-            <TextInput style={styles.input} keyboardType={'email-address'} onChangeText={(value) => onHandleInputText(1, value)} />
-            <Text style={[styles.inputTitle, { marginTop: 30 }]}>Contraseña</Text>
-            <TextInput style={styles.input} secureTextEntry={true} onChangeText={(value) => onHandleInputText(2, value)} />
-            <TouchableOpacity style={loginButtonIsPressable ? styles.loginButton : [styles.loginButton, { opacity: 0.5 }]} onPress={logIn} disabled={loginButtonIsPressable ? false : true}>
-                <Text style={styles.loginButtonText}>Iniciar sesión</Text>
-            </TouchableOpacity>
-            <View style={styles.separatorContainer}>
-                <View style={styles.separatorLine} />
-                <View style={styles.separatorTextContainer}>
-                    <Text style={{ color: colors.darkText }}>O</Text>
-                </View>
-                <View style={styles.separatorLine} />
+        <View style={{ backgroundColor: colors.background, flex: 1 }}>
+            <StatusBar barStyle='dark-content' backgroundColor={colors.white} translucent={false} />
+            <View style={{ marginHorizontal: 20, marginTop: 40, height: '30%' }}>
+                <Image style={{ height: '100%', width: '100%' }} source={require('../../../assets/images/tracker.png')} />
             </View>
-            <TouchableOpacity style={styles.signupButton} onPress={onHandleSignInButton}>
-                <Text style={styles.signupButtonText}>Registrarse</Text>
+            <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-Bold', fontSize: 22, marginHorizontal: 20, marginBottom: 10 }}>Iniciar sesión</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginBottom: 10 }}>
+                <Image style={{ height: 24, width: '10%' }} source={require('../../../assets/icons/at.png')} resizeMode={'contain'} />
+                <TextInput onChangeText={(value) => onHandleTextInput(1, value)} selectionColor={colors.primaryTitle} underlineColorAndroid={colors.input} style={{ width: '90%', color: colors.primaryTitle }} placeholder={'Correo electronico'} placeholderTextColor={colors.secondaryTitle} keyboardType={'email-address'} />
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20 }}>
+                <Image style={{ height: 24, width: '10%' }} source={require('../../../assets/icons/lock.png')} resizeMode={'contain'} />
+                <TextInput onChangeText={(value) => onHandleTextInput(2, value)} selectionColor={colors.primaryTitle} underlineColorAndroid={colors.input} style={{ width: '90%', color: colors.primaryTitle }} placeholder={'Contraseña'} placeholderTextColor={colors.secondaryTitle} secureTextEntry />
+            </View>
+            <View style={{ alignItems: 'flex-end', padding: 20, }}>
+                <TouchableOpacity style={{ alignItems: 'flex-end' }}>
+                    <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-SemiBold' }}>¿Olvidaste tu contraseña?</Text>
+                </TouchableOpacity>
+            </View>
+            <TouchableOpacity onPress={onHandleLoginButton} style={{ marginHorizontal: 20, height: 50, backgroundColor: colors.primaryTitle, alignItems: 'center', justifyContent: 'center', borderRadius: 20 }} disabled={isLogining && true} >
+                {
+                    isLogining ?
+                        <ActivityIndicator color={colors.white} /> :
+                        <Text style={{ color: colors.white, fontFamily: 'Montserrat-Bold' }}>Entrar</Text>
+
+                }
             </TouchableOpacity>
+            <Text style={{ color: colors.primaryTitle, alignSelf: 'center', marginVertical: 20, fontFamily: 'Montserrat-Regular' }}>o</Text>
+            <TouchableOpacity style={{ borderWidth: 2, borderColor: colors.primaryTitle, flexDirection: 'row', marginHorizontal: 20, marginBottom: 20, height: 50, alignItems: 'center', justifyContent: 'center', borderRadius: 20 }}>
+                <Image style={{ height: 24, width: 24, marginRight: 10 }} source={require('../../../assets/icons/google.png')} />
+                <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-Bold' }}>Continuar con google</Text>
+            </TouchableOpacity>
+            <View style={{ flexDirection: 'row', alignSelf: 'center', }}>
+                <Text style={{ color: colors.secondaryTitle, fontFamily: 'Montserrat-Bold', marginRight: 5 }}>¿Nuevo en Trainr?</Text>
+                <TouchableOpacity onPress={() => props.navigation.navigate('SignInStack')}>
+                    <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-Bold' }}>Registrate</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
-};
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.background
-    },
-    inputTitle: {
-        color: colors.darkText,
-        fontSize: 30,
-        fontFamily: 'AlfaSlabOne-Regular',
-        marginHorizontal: 20
-    },
-    input: {
-        backgroundColor: colors.textInput,
-        color: colors.darkText,
-        marginHorizontal: 20,
-        paddingHorizontal: 20,
-        borderRadius: 5
-    },
-    loginButton: {
-        alignSelf: 'center',
-        marginVertical: 40,
-        backgroundColor: colors.primary,
-        borderRadius: 30
-    },
-    loginButtonText: {
-        color: colors.whiteText,
-        fontFamily: 'RobotoSlab-SemiBold',
-        marginHorizontal: 30,
-        marginVertical: 15,
-        fontSize: 15
-    },
-    separatorContainer: {
-        flexDirection: 'row',
-        marginHorizontal: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 35
-    },
-    separatorLine: {
-        width: '40%',
-        height: 0,
-        borderBottomWidth: 1
-    },
-    separatorTextContainer: {
-        width: '20%',
-        alignItems: 'center',
-    },
-    signupButton: {
-        alignSelf: 'center',
-        borderWidth: 1,
-        borderColor: colors.darkText,
-        borderRadius: 10
-    },
-    signupButtonText: {
-        color: colors.darkText,
-        fontFamily: 'RobotoSlab-Medium',
-        marginHorizontal: 12,
-        marginVertical: 1,
-        fontSize: 12
-    }
-})
+}
 
 export default LoginView;

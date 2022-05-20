@@ -1,4 +1,4 @@
-import React, { Component, useContext } from 'react';
+import React, { Component, useContext, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, TextInput, Modal, Pressable, Alert, ToastAndroid, ScrollView } from 'react-native';
 import colors from '../../../../assets/Colors';
 import { Picker } from '@react-native-picker/picker';
@@ -199,8 +199,8 @@ class RoutineAddView extends Component {
                     <View style={{ flex: 1, justifyContent: 'center' }}>
                         <Pressable onPress={() => this.setState({ modalVisible: !this.state.modalVisible })} style={{ height: '100%', width: '100%', backgroundColor: '#000000AA', }} />
                         <View style={{ backgroundColor: colors.background, borderRadius: 5, elevation: 5, padding: 30, position: 'absolute', alignSelf: 'center', }}>
-                            <Text style={{ color: colors.darkText, fontFamily: 'Montserrat-ExtraBold', marginBottom: 15, fontSize: 16, }}>Agregar ejercicio</Text>
-                            <Picker selectedValue={this.state.exercise} onValueChange={(itemValue, itemIndex) => this.setState({ exercise: itemValue, indexExercise: itemIndex })} style={{ color: colors.darkText, backgroundColor: '#F5F5F5', marginBottom: 15, width: 250 }} dropdownIconColor={colors.darkText}>
+                            <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-ExtraBold', marginBottom: 15, fontSize: 16, }}>Agregar ejercicio</Text>
+                            <Picker selectedValue={this.state.exercise} onValueChange={(itemValue, itemIndex) => this.setState({ exercise: itemValue, indexExercise: itemIndex })} style={{ color: colors.primaryTitle, backgroundColor: '#F5F5F5', marginBottom: 15, width: 250 }} dropdownIconColor={colors.primaryTitle}>
                                 {
                                     this.state.dataExercises.map((item, index) => (
                                         <Picker.Item key={index} label={item.name} value={item.id} />
@@ -209,39 +209,39 @@ class RoutineAddView extends Component {
                             </Picker>
                             <View style={{ flexDirection: 'row', marginBottom: 20, alignItems: 'center', }}>
                                 <TouchableOpacity onPress={() => this.onHandleQuantityButton('-', 'reps')} style={{ height: 26, width: 26, marginRight: 10, backgroundColor: 'white', elevation: 5, borderRadius: 13, justifyContent: 'center', alignItems: 'center', }}>
-                                    <Image style={{ height: '80%', width: '80%', tintColor: colors.darkText }} source={require('../../../../assets/icons/minus.png')} resizeMode={'contain'} />
+                                    <Image style={{ height: '80%', width: '80%', tintColor: colors.primaryTitle }} source={require('../../../../assets/icons/minus.png')} resizeMode={'contain'} />
                                 </TouchableOpacity>
-                                <Text style={{ color: colors.darkText, fontFamily: 'Montserrat-Regular', marginRight: 10 }}>{this.state.reps}</Text>
+                                <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-Regular', marginRight: 10 }}>{this.state.reps}</Text>
                                 <TouchableOpacity onPress={() => this.onHandleQuantityButton('+', 'reps')} style={{ height: 26, width: 26, marginRight: 10, backgroundColor: 'white', elevation: 5, borderRadius: 13, justifyContent: 'center', alignItems: 'center', }}>
-                                    <Image style={{ height: '80%', width: '80%', tintColor: colors.darkText }} source={require('../../../../assets/icons/add.png')} resizeMode={'contain'} />
+                                    <Image style={{ height: '80%', width: '80%', tintColor: colors.primaryTitle }} source={require('../../../../assets/icons/add.png')} resizeMode={'contain'} />
                                 </TouchableOpacity>
-                                <Text style={{ color: colors.darkText, fontFamily: 'Montserrat-Regular' }}>reps</Text>
+                                <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-Regular' }}>reps</Text>
                             </View>
                             <View style={{ flexDirection: 'row', marginBottom: 20, alignItems: 'center', }}>
                                 <TouchableOpacity onPress={() => this.onHandleQuantityButton('-', 'sets')} style={{ height: 26, width: 26, marginRight: 10, backgroundColor: 'white', elevation: 5, borderRadius: 13, justifyContent: 'center', alignItems: 'center', }}>
-                                    <Image style={{ height: '80%', width: '80%', tintColor: colors.darkText }} source={require('../../../../assets/icons/minus.png')} resizeMode={'contain'} />
+                                    <Image style={{ height: '80%', width: '80%', tintColor: colors.primaryTitle }} source={require('../../../../assets/icons/minus.png')} resizeMode={'contain'} />
                                 </TouchableOpacity>
-                                <Text style={{ color: colors.darkText, fontFamily: 'Montserrat-Regular', marginRight: 10 }}>{this.state.sets}</Text>
+                                <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-Regular', marginRight: 10 }}>{this.state.sets}</Text>
                                 <TouchableOpacity onPress={() => this.onHandleQuantityButton('+', 'sets')} style={{ height: 26, width: 26, marginRight: 10, backgroundColor: 'white', elevation: 5, borderRadius: 13, justifyContent: 'center', alignItems: 'center', }}>
-                                    <Image style={{ height: '80%', width: '80%', tintColor: colors.darkText }} source={require('../../../../assets/icons/add.png')} resizeMode={'contain'} />
+                                    <Image style={{ height: '80%', width: '80%', tintColor: colors.primaryTitle }} source={require('../../../../assets/icons/add.png')} resizeMode={'contain'} />
                                 </TouchableOpacity>
-                                <Text style={{ color: colors.darkText, fontFamily: 'Montserrat-Regular' }}>series</Text>
+                                <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-Regular' }}>series</Text>
                             </View>
                             <View style={{ height: 150, marginBottom: 15 }}>
-                                <Text style={{ color: colors.darkText, fontFamily: 'Montserrat-ExtraBold', fontSize: 16, marginLeft: 10, marginTop: 10 }}>Peso</Text>
+                                <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-ExtraBold', fontSize: 16, marginLeft: 10, marginTop: 10 }}>Peso</Text>
                                 <ScrollView>
                                     {this.state.exercisesWeights.map((item, index) => (
                                         <View key={index} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 5 }}>
-                                            <Text style={{ color: colors.darkText, fontFamily: 'Montserrat-Bold' }}>Serie {index + 1} </Text>
+                                            <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-Bold' }}>Serie {index + 1} </Text>
                                             {
                                                 item.weight !== -1 &&
                                                 <TouchableOpacity onPress={() => this.onHandleWeightQuantityButton('-', index)} style={{ height: 26, width: 26, marginRight: 10, backgroundColor: 'white', elevation: 5, borderRadius: 13, justifyContent: 'center', alignItems: 'center', }}>
-                                                    <Image style={{ height: '80%', width: '80%', tintColor: colors.darkText }} source={require('../../../../assets/icons/minus.png')} resizeMode={'contain'} />
+                                                    <Image style={{ height: '80%', width: '80%', tintColor: colors.primaryTitle }} source={require('../../../../assets/icons/minus.png')} resizeMode={'contain'} />
                                                 </TouchableOpacity>
                                             }
-                                            <Text style={{ color: colors.darkText, fontFamily: 'Montserrat-Regular', marginRight: 10 }}>{item.weight === -1 ? 'Bodyweight' : item.weight === 0 ? 'Sin peso' : item.weight + ' ' + item.unity}</Text>
+                                            <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-Regular', marginRight: 10 }}>{item.weight === -1 ? 'Bodyweight' : item.weight === 0 ? 'Sin peso' : item.weight + ' ' + item.unity}</Text>
                                             <TouchableOpacity onPress={() => this.onHandleWeightQuantityButton('+', index)} style={{ height: 26, width: 26, marginRight: 10, backgroundColor: 'white', elevation: 5, borderRadius: 13, justifyContent: 'center', alignItems: 'center', }}>
-                                                <Image style={{ height: '80%', width: '80%', tintColor: colors.darkText }} source={require('../../../../assets/icons/add.png')} resizeMode={'contain'} />
+                                                <Image style={{ height: '80%', width: '80%', tintColor: colors.primaryTitle }} source={require('../../../../assets/icons/add.png')} resizeMode={'contain'} />
                                             </TouchableOpacity>
                                         </View>
                                     ))
@@ -249,7 +249,7 @@ class RoutineAddView extends Component {
                                 </ScrollView>
                             </View>
                             <TouchableOpacity onPress={this.onAddExercise} style={{ backgroundColor: '#50C878', borderRadius: 2, padding: 10, alignItems: 'center', }}>
-                                <Text style={{ color: colors.whiteText, fontFamily: 'Montserrat-Bold', }}>Guardar</Text>
+                                <Text style={{ color: colors.white, fontFamily: 'Montserrat-Bold', }}>Guardar</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -257,29 +257,29 @@ class RoutineAddView extends Component {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{ paddingHorizontal: 20 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: 15 }}>
-                            <TouchableOpacity onPress={this.props.navigation.goBack} style={{ height: 30, width: 30, backgroundColor: colors.whiteText, borderRadius: 15, elevation: 5, justifyContent: 'center', alignItems: 'center' }}>
+                            <TouchableOpacity onPress={this.props.navigation.goBack} style={{ height: 30, width: 30, backgroundColor: colors.white, borderRadius: 15, elevation: 5, justifyContent: 'center', alignItems: 'center' }}>
                                 <Image style={{ height: '70%', width: '70%' }} source={require('../../../../assets/icons/close.png')} resizeMode={'contain'} />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={this.onHandleCreateButton} style={{ backgroundColor: '#50C878', borderRadius: 5, elevation: 5, paddingHorizontal: 20, justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }}>
-                                <Text style={{ color: colors.whiteText, fontFamily: 'Montserrat-ExtraBold' }}>Crear</Text>
+                            <TouchableOpacity onPress={this.onHandleCreateButton} style={{ backgroundColor: colors.primaryTitle, borderRadius: 5, elevation: 5, paddingHorizontal: 20, justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }}>
+                                <Text style={{ color: colors.white, fontFamily: 'Montserrat-ExtraBold' }}>Crear</Text>
                             </TouchableOpacity>
                         </View>
-                        <Text style={{ marginBottom: 20, color: colors.darkText, fontSize: 25, fontFamily: 'Montserrat-ExtraBold' }}>Crear una rutina</Text>
+                        <Text style={{ marginBottom: 20, color: colors.primaryTitle, fontSize: 25, fontFamily: 'Montserrat-ExtraBold' }}>Crear una rutina</Text>
                         <TextInput onChangeText={(value) => this.setState({
                             name: value
-                        })} style={{ borderWidth: 1, backgroundColor: '#F3F3F3', borderColor: '#F5F5F5', paddingHorizontal: 20, color: colors.darkText, fontFamily: 'Montserrat-Medium' }} placeholder={'Nombre de la rutina'} placeholderTextColor={'gray'} />
-                        <Text style={{ color: colors.darkText, fontFamily: 'Montserrat-Regular', marginBottom: 20 }}>e.j. Tren superior, tren inferior, rutina de Juan.</Text>
+                        })} style={{ borderWidth: 1, backgroundColor: '#F3F3F3', borderColor: '#F5F5F5', paddingHorizontal: 20, color: colors.primaryTitle, fontFamily: 'Montserrat-Medium' }} placeholder={'Nombre de la rutina'} placeholderTextColor={'gray'} />
+                        <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-Regular', marginBottom: 20 }}>e.j. Tren superior, tren inferior, rutina de Juan.</Text>
                         {
                             this.state.exercises.map((item, index) => (
                                 <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15, alignItems: 'center', }}>
                                     <View>
-                                        <Text style={{ color: colors.darkText }}>{item.name}</Text>
-                                        <Text style={{ color: colors.darkText }}>{item.reps} reps x {item.sets} series</Text>
+                                        <Text style={{ color: colors.primaryTitle }}>{item.name}</Text>
+                                        <Text style={{ color: colors.primaryTitle }}>{item.reps} reps x {item.sets} series</Text>
                                         <View style={{ flexDirection: 'row' }}>
                                             {
                                                 item.weights.map((item, index) => (
                                                     <View key={index} style={{ marginRight: 5 }}>
-                                                        <Text style={{ color: colors.darkText }}>{item.weight === -1 ? 'Bodyweight' : item.weight === 0 ? 'Sin peso' : item.weight + 'lb'}</Text>
+                                                        <Text style={{ color: colors.primaryTitle }}>{item.weight === -1 ? 'Bodyweight' : item.weight === 0 ? 'Sin peso' : item.weight + 'lb'}</Text>
                                                     </View>
                                                 ))
                                             }
@@ -297,7 +297,7 @@ class RoutineAddView extends Component {
                         }
                         <TouchableOpacity onPress={() => this.setState({ modalVisible: true })} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 15 }}>
                             <Image style={{ height: 24, width: 24, marginRight: 5 }} source={require('../../../../assets/icons/add.png')} resizeMode={'contain'} />
-                            <Text style={{ color: colors.darkText, fontFamily: 'Montserrat-Regular' }}>Agregar ejercicio</Text>
+                            <Text style={{ color: colors.primaryTitle, fontFamily: 'Montserrat-Regular' }}>Agregar ejercicio</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>

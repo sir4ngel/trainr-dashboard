@@ -13,8 +13,8 @@ const DrawerNavigator = createDrawerNavigator();
 function DrawerScreen() {
     return (
         <DrawerNavigator.Navigator drawerContent={(props) => <DrawerContent {...props} />} screenOptions={{
-            headerShown: false, drawerActiveBackgroundColor: colors.primary, drawerActiveTintColor: colors.whiteText, drawerInactiveTintColor: colors.textDark, drawerLabelStyle: {
-                marginLeft: -25, fontFamily: 'RobotoSlab-Medium', fontSize: 15
+            headerShown: false, drawerActiveBackgroundColor: colors.primaryTitle, drawerActiveTintColor: colors.white, drawerInactiveTintColor: colors.primaryTitle, drawerLabelStyle: {
+                marginLeft: -25, fontFamily: 'Montserrat-Medium', fontSize: 15
             }
         }} >
             <DrawerNavigator.Screen name='HomeStack' component={HomeStack} options={{
@@ -38,13 +38,13 @@ function DrawerScreen() {
                     </View>
                 )
             }} />
-            <DrawerNavigator.Screen name='ProfileStack' component={ProfileStack} options={{
+            {/* <DrawerNavigator.Screen name='ProfileStack' component={ProfileStack} options={{
                 title: 'Mi perfil', drawerIcon: ({ color }) => (
                     <View style={{ height: 22, width: 22, marginRight: 5 }}>
                         <Image style={{ height: '100%', width: '100%', tintColor: color }} source={require('../../../assets/icons/user2.png')} resizeMode='contain'></Image>
                     </View>
                 )
-            }} />
+            }} /> */}
         </DrawerNavigator.Navigator>
     );
 }
